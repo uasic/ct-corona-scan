@@ -1,0 +1,1 @@
+# ct-corona-scan
