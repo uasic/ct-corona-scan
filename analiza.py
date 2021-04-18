@@ -86,6 +86,26 @@ def dataset():
     def stevilo_poskodb(np_img):
         contours, indices, areas = najdi_poskodovana_obmocja(np_to_cv_img(np_img))
         return len(indices)
+
+
+    def koorduinata_najvecje_poskodbe(katera_koordinata):
+        assert katera_koordinata == 0 or katera_koordinata == 1
+        def x_koorduinata_najvecje_poskodbe(np_img):
+            contours, indices, areas = najdi_poskodovana_obmocja(np_to_cv_img(np_img))
+            ix_max = -1
+            area_max = float('-inf')
+            for ix, area in enumerate(areas):
+                if (area > area_max):
+                    area_max = area
+                    ix_max = ix
+
+            ix_in_contours = indices[ix_max]
+
+            cnt_with_max_area = contours[ix_in_contours]
+
+            return np.mean([coor[0][katera_koordinata] for coor in cnt_with_max_area])
+        return x_koorduinata_najvecje_poskodbe
+
         
     def get(x):
         def f(l):
@@ -94,6 +114,7 @@ def dataset():
     
         
     features_funcs = [
+        (x_koorduinata_najvecje_poskodbe, np.mean),
         (skupna_povrsina_poskodb, max),
         (stevilo_poskodb, np.mean),
     ]        
