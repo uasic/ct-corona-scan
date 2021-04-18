@@ -96,16 +96,6 @@ def dataset():
     features_funcs = [
         (skupna_povrsina_poskodb, max),
         (stevilo_poskodb, np.mean),
-        (skupna_povrsina_poskodb, get(0)),
-        (skupna_povrsina_poskodb, get(1)),
-        (skupna_povrsina_poskodb, get(2)),
-        (skupna_povrsina_poskodb, get(3)),
-        (skupna_povrsina_poskodb, get(4)),
-        (skupna_povrsina_poskodb, get(5)),
-        (skupna_povrsina_poskodb, get(6)),
-        (skupna_povrsina_poskodb, get(7)),
-        (skupna_povrsina_poskodb, get(8)),
-        (skupna_povrsina_poskodb, get(9)),
     ]        
     
     data = [ analiziraj(f, a) for f, a in features_funcs ]
@@ -133,7 +123,7 @@ if (__name__ == "__main__"):
     
     X, y = dataset()
     
-    permutation_test(LogisticRegression(random_state=0).fit, X, y)
+    permutation_test(LogisticRegression(random_state=0).fit, X, y, iterations=10)
     exit()
     
     print("predict", clf.predict(X[:2, :]))
